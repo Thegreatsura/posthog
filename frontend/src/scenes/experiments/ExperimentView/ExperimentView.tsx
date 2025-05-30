@@ -58,28 +58,38 @@ const ResultsTab = (): JSX.Element => {
                     <Overview />
                 </div>
             )}
+            {/**
+             * Primary Metrics Panel (Add Metric and Delta Chart)
+             */}
             <MetricsView isSecondary={false} />
-            {/* Show detailed results if there's only a single primary metric */}
+            {/**
+             * Show a detailed results if:
+             * - there's a single primary metric
+             * - if the metric has insight results
+             * - if we have the minimum number of exposures
+             * - if it's the first primary metric (?)
+             */}
             {hasSomeResults && hasMinimumExposureForResults && hasSinglePrimaryMetric && firstPrimaryMetric && (
                 <div>
                     <div className="pb-4">
                         <SummaryTable metric={firstPrimaryMetric} metricIndex={0} isSecondary={false} />
                     </div>
                     {/* TODO: Only show explore button results viz if the metric is a trends or funnels query. Not supported yet with new query runner */}
-                    {legacyMetricResults?.[0] &&
-                        (legacyMetricResults[0].kind === 'ExperimentTrendsQuery' ||
-                            legacyMetricResults[0].kind === 'ExperimentFunnelsQuery') && (
-                            <>
-                                <div className="flex justify-end">
-                                    <ExploreButton result={legacyMetricResults[0]} size="xsmall" />
-                                </div>
-                                <div className="pb-4">
-                                    <ResultsQuery result={legacyMetricResults?.[0] || null} showTable={true} />
-                                </div>
-                            </>
-                        )}
+                    {legacyMetricResults?.[0] && (
+                        <>
+                            <div className="flex justify-end">
+                                <ExploreButton result={legacyMetricResults[0]} size="xsmall" />
+                            </div>
+                            <div className="pb-4">
+                                <ResultsQuery result={legacyMetricResults?.[0] || null} showTable={true} />
+                            </div>
+                        </>
+                    )}
                 </div>
             )}
+            {/**
+             * Secondary Metrics Panel
+             */}
             <MetricsView isSecondary={true} />
         </>
     )
