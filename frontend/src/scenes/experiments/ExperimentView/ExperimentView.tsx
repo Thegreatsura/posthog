@@ -2,6 +2,8 @@ import { LemonTabs } from '@posthog/lemon-ui'
 import { useActions, useValues } from 'kea'
 import { WebExperimentImplementationDetails } from 'scenes/experiments/WebExperimentImplementationDetails'
 
+import type { CachedExperimentQueryResponse } from '~/queries/schema/schema-general'
+
 import { ExperimentImplementationDetails } from '../ExperimentImplementationDetails'
 import { experimentLogic } from '../experimentLogic'
 import { ExperimentMetricModal } from '../Metrics/ExperimentMetricModal'
@@ -11,9 +13,11 @@ import { SharedMetricModal } from '../Metrics/SharedMetricModal'
 import { MetricsView } from '../MetricsView/MetricsView'
 import { VariantDeltaTimeseries } from '../MetricsView/VariantDeltaTimeseries'
 import { RunningTimeCalculatorModal } from '../RunningTimeCalculator/RunningTimeCalculatorModal'
+import { isLegacyExperimentQuery } from '../utils'
 import {
     EditConclusionModal,
     ExploreButton,
+    LegacyResultsQuery,
     LoadingState,
     PageHeaderCustom,
     ResultsQuery,
@@ -80,13 +84,18 @@ const ResultsTab = (): JSX.Element => {
                             <div className="flex justify-end">
                                 <ExploreButton result={legacyMetricResults[0]} size="xsmall" />
                             </div>
-                            <div className="pb-4">
-                                <ResultsQuery
-                                    experiment={experiment}
-                                    result={legacyMetricResults[0] || null}
-                                    showTable={true}
-                                />
-                            </div>
+                            {isLegacyExperimentQuery(legacyMetricResults[0]) ? (
+                                <div className="pb-4">
+                                    <LegacyResultsQuery result={legacyMetricResults[0] || null} showTable={true} />
+                                </div>
+                            ) : (
+                                <div className="pb-4">
+                                    <ResultsQuery
+                                        experiment={experiment}
+                                        result={legacyMetricResults[0] as CachedExperimentQueryResponse}
+                                    />
+                                </div>
+                            )}
                         </>
                     )}
                 </div>
