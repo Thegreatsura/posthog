@@ -84,18 +84,16 @@ const ResultsTab = (): JSX.Element => {
                             <div className="flex justify-end">
                                 <ExploreButton result={legacyMetricResults[0]} size="xsmall" />
                             </div>
-                            {isLegacyExperimentQuery(legacyMetricResults[0]) ? (
-                                <div className="pb-4">
+                            <div className="pb-4">
+                                {isLegacyExperimentQuery(legacyMetricResults[0]) ? (
                                     <LegacyResultsQuery result={legacyMetricResults[0] || null} showTable={true} />
-                                </div>
-                            ) : (
-                                <div className="pb-4">
+                                ) : (
                                     <ResultsQuery
                                         experiment={experiment}
                                         result={legacyMetricResults[0] as CachedExperimentQueryResponse}
                                     />
-                                </div>
-                            )}
+                                )}
+                            </div>
                         </>
                     )}
                 </div>
