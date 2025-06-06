@@ -81,9 +81,11 @@ const ResultsTab = (): JSX.Element => {
                     {/* TODO: Only show explore button results viz if the metric is a trends or funnels query. Not supported yet with new query runner */}
                     {legacyMetricResults?.[0] && (
                         <>
-                            <div className="flex justify-end">
-                                <ExploreButton result={legacyMetricResults[0]} size="xsmall" />
-                            </div>
+                            {isLegacyExperimentQuery(legacyMetricResults[0]) && (
+                                <div className="flex justify-end">
+                                    <ExploreButton result={legacyMetricResults[0]} size="xsmall" />
+                                </div>
+                            )}
                             <div className="pb-4">
                                 {isLegacyExperimentQuery(legacyMetricResults[0]) ? (
                                     <LegacyResultsQuery result={legacyMetricResults[0] || null} showTable={true} />
