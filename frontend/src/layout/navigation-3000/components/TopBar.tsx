@@ -9,6 +9,7 @@ import { EditableField } from 'lib/components/EditableField/EditableField'
 import { FlaggedFeature } from 'lib/components/FlaggedFeature'
 import { MetalyticsSummary } from 'lib/components/Metalytics/MetalyticsSummary'
 import { moveToLogic } from 'lib/components/MoveTo/moveToLogic'
+import { TopBarSettingsButton } from 'lib/components/TopBarSettingsButton/TopBarSettingsButton'
 import { FEATURE_FLAGS } from 'lib/constants'
 import { IconMenu, IconSlash } from 'lib/lemon-ui/icons'
 import { Link } from 'lib/lemon-ui/Link'
@@ -190,6 +191,9 @@ export function TopBar(): JSX.Element | null {
                         <MetalyticsSummary />
                     </div>
                 </FlaggedFeature>
+                <div className="shrink-1">
+                    <TopBarSettingsButton />
+                </div>
                 <div className="TopBar3000__actions border-danger" ref={setActionsContainer} />
             </div>
         </div>
