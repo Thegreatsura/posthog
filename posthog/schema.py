@@ -1983,7 +1983,7 @@ class TaxonomicFilterGroupType(StrEnum):
     NOTEBOOKS = "notebooks"
     LOG_ENTRIES = "log_entries"
     ERROR_TRACKING_ISSUES = "error_tracking_issues"
-    LOGS = "logs"
+    LOG_ATTRIBUTES = "log_attributes"
     REPLAY = "replay"
     REVENUE_ANALYTICS_PROPERTIES = "revenue_analytics_properties"
     RESOURCES = "resources"
@@ -10097,6 +10097,7 @@ class LogsQuery(BaseModel):
     resource: Optional[str] = None
     response: Optional[LogsQueryResponse] = None
     searchTerm: Optional[str] = None
+    serviceNames: list[str]
     severityLevels: list[LogSeverityLevel]
 
 
